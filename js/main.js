@@ -309,11 +309,11 @@ function createPieces(type, color) {
 }
 
 //White pawns
-// for (let col = 0; col < 8; col++) {
-//     boardState[6][col] = createPieces("Pawn", "white")
-// }
+for (let col = 0; col < 8; col++) {
+    boardState[6][col] = createPieces("Pawn", "white")
+}
 
-boardState[6][4] = createPieces("Pawn", "black");
+// boardState[6][4] = createPieces("Pawn", "black");
 
 //Black pawn
 for (let col = 0; col < 8; col++) {
@@ -327,24 +327,24 @@ boardState[7][0] = createPieces("Rook", "white");
 boardState[7][7] = createPieces("Rook", "white");
 
 //Bishop
-// boardState[0][2] = createPieces("Bishop", "black");
-// boardState[0][5] = createPieces("Bishop", "black");
-// boardState[7][2] = createPieces("Bishop", "white");
-// boardState[7][5] = createPieces("Bishop", "white");
+boardState[0][2] = createPieces("Bishop", "black");
+boardState[0][5] = createPieces("Bishop", "black");
+boardState[7][2] = createPieces("Bishop", "white");
+boardState[7][5] = createPieces("Bishop", "white");
 
 //Knight
-// boardState[0][1] = createPieces("Knight", "black");
-// boardState[0][6] = createPieces("Knight", "black");
-// boardState[7][1] = createPieces("Knight", "white");
-// boardState[7][6] = createPieces("Knight", "white");
+boardState[0][1] = createPieces("Knight", "black");
+boardState[0][6] = createPieces("Knight", "black");
+boardState[7][1] = createPieces("Knight", "white");
+boardState[7][6] = createPieces("Knight", "white");
 
 //King
 boardState[7][4] = createPieces("King", "white");
 boardState[0][4] = createPieces("King", "black");
 
 //Queen
-// boardState[7][3] = createPieces("Queen", "white");
-// boardState[0][3] = createPieces("Queen", "black");
+boardState[7][3] = createPieces("Queen", "white");
+boardState[0][3] = createPieces("Queen", "black");
 
 isThreshold(boardState);
 renderBoard();
