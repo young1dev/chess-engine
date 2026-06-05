@@ -1,9 +1,10 @@
-# chess-engine
+# Chess-Engine
+
 JavaScript chess engine with legal move validation, castling, en passant, promotion, and a random-move bot. No frameworks, no libraries — vanilla JS.
 
 # Chess Bot
 
-A vanilla JavaScript chess engine with a built-in bot. No frameworks, no libraries — just HTML, CSS, and JS.
+A vanilla JavaScript chess engine with a built-in bot. Built with HTML, CSS, and JS.
 
 ## Features
 
@@ -16,78 +17,61 @@ A vanilla JavaScript chess engine with a built-in bot. No frameworks, no librari
 - Insufficient material draw
 - Move and check highlighting
 - Previous move highlight
+- Boardstate hashing
+- Move history (SAN-style notation)
 - Random-move bot (V1)
 
-## Project Structure
+### Why I Built This
 
-```
-├── index.html       # Board markup
-├── style.css        # Board and piece styling
-├── logic.js         # Chess rules (move validation, check, castling, etc.)
-├── ui.js            # Rendering, highlighting, board display
-├── v1bot.js         # Bot logic (random legal mover)
-├── main.js          # Game loop, event listeners, state management
-└── pieces/          # SVG piece images
+I've always wanted to know how to play chess like top players eg magnus carlsen, hikaru and the likes but to no avail. So i thought that if i can't be a great player i can create one. This brought me to the descison of creating one by studying and using patterns of top players (Current v1bot doesn't have that yet)
+
+This project helped me deeply understand:
+
+Game state management
+Rule validation
+Edge cases like castling, en passant, and draw conditions
+Structuring larger JavaScript files without frameworks
+
+### Problems I Faced
+
+````
+- Handling king safety was harder than expected. I had to simulate moves on a cloned board to avoid illegal self-checks and also prevent mutatio.
+- Threefold repetition required hashing board states correctly.
+- Separating UI logic separate from game rules took several refactors as i always tied the game logic which the ui logic which caused lot of bugs and disappearing piece.
+
+These challenges helped me understand why chess engines are usually built in layers.
 ```
 
-## How It Works
+## Key Logic Functions
+
+| Function | File | Purpose |
+|--------|------|--------|
+| `isMoveAllowed()` | logic.js | Raw piece movement rules |
+| `isLegalMove()` | logic.js | Validates move + king safety using board simulation |
+| `isCheck()` | logic.js | Detects if a king is under attack |
+| `isCheckmate()` | logic.js | King in check with no legal moves |
+| `isStalemate()` | logic.js | No legal moves but not in check |
+| `getBotMove()` | v1bot.js | Selects a random legal move |
+| `executeBotMove()` | main.js | Applies the bot move |
+| `gameStateCheck()` | main.js | Evaluates end-game conditions |
+| `renderBoard()` | ui.js | Updates board UI |
 
 ### Move flow
-```
+
+````
+
 Player clicks → main.js
-    → isLegalMove() checks rules + king safety
-    → move() updates boardState
-    → renderBoard() repaints UI
-    → turnSwitch() flips turn
-    → gameStateCheck() checks for check/checkmate/stalemate/draw
-    → Bot triggers if it's black's turn
-```
-
-### Key functions
-
-| Function | File | Job |
-|---|---|---|
-| `isMoveAllowed()` | logic.js | Raw piece movement rules |
-| `isLegalMove()` | logic.js | Rules + king safety (clones board to simulate) |
-| `isCheck()` | logic.js | Is the current player's king under attack? |
-| `isCheckmate()` | logic.js | In check with no legal moves? |
-| `isStalemate()` | logic.js | Not in check but no legal moves? |
-| `getBotMove()` | v1bot.js | Picks a random legal move for the bot |
-| `executeBotMove()` | main.js | Executes the bot's chosen move |
-| `gameStateCheck()` | main.js | Runs all end-condition checks after every move |
-| `renderBoard()` | ui.js | Repaints the board from boardState |
-
-## Script Load Order
-
-Scripts must load in this order or functions won't exist when called:
-
-```html
-<script src="logic.js"></script>
-<script src="v1bot.js"></script>
-<script src="ui.js"></script>
-<script src="main.js"></script>
-```
-
-## Piece Images
-
-Drop SVG piece files into a `pieces/` folder in the project root. Expected filenames:
-
-```
-wK.svg wQ.svg wR.svg wB.svg wN.svg wP.svg
-bK.svg bQ.svg bR.svg bB.svg bN.svg bP.svg
-```
-
-Recommended source: [Lichess Cburnett pieces](https://github.com/lichess-org/lila/tree/master/public/piece/cburnett)
-
-## Roadmap
-
-- [ ] Promotion modal (replace `prompt()`)
-- [ ] Move history panel
-- [ ] V2 bot — minimax with piece value evaluation
-- [ ] Alpha-beta pruning
-- [ ] Board flip for black
-- [ ] Game timer
+→ isLegalMove() checks rules + king safety
+→ move() updates boardState
+→ renderBoard() repaints UI
+→ turnSwitch() flips turn
+→ gameStateCheck() checks for check/checkmate/stalemate/draw
+→ Bot triggers if it's black's turn
 
 ## Built By
 
-**ZICO** — [@IsaacDev](https://zico-brand.vercel.app)
+**ZICO** — [@IsaacDev](https://isaacdev-portfolio.vercel.app)
+
+```
+
+```
