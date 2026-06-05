@@ -68,6 +68,10 @@ Player clicks → main.js
 → gameStateCheck() checks for check/checkmate/stalemate/draw
 → Bot triggers if it's black's turn
 
+### Tools used while building
+AI for UI and research 
+Youtube for understanding the minmax algorithm for v2bot(in progress)
+
 ## Built By
 
 **ZICO** — [@IsaacDev](https://isaacdev-portfolio.vercel.app)
