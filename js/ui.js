@@ -23,7 +23,7 @@ function renderBoard() {
     const col = Number(cell.dataset.col);
 
     cell.classList.remove("light", "dark");
-    cell.classList.add((row + col) % 2 === 0 ? "dark" : "light");
+    cell.classList.add((row + col) % 2 === 0 ? "light" : "dark");
 
     // Clear cell
     cell.innerHTML = "";
@@ -41,7 +41,7 @@ function renderBoard() {
 label.style.position = "absolute";
 label.style.fontSize = "10px";
 label.style.fontWeight = "500";
-label.style.color = (row + col) % 2 === 0 ? "#e8eaf6" : "#0931b3";
+label.style.color = 'white'
 
 if (playerColor === "white") {
   if (col === 0){
@@ -68,7 +68,7 @@ if (row === 7 && playerColor === "white") {
   fileLabel.style.position = "absolute";
   fileLabel.style.fontSize = "10px";
   fileLabel.style.fontWeight = "500";
-  fileLabel.style.color = (row + col) % 2 === 0 ? "#e8eaf6" : "#0931b3";
+  fileLabel.style.color = 'white'
   fileLabel.textContent = ["a","b","c","d","e","f","g","h"][col];
   fileLabel.style.bottom = "2px";
   fileLabel.style.right = "2px";
@@ -79,7 +79,7 @@ if (row === 0 && playerColor === "black") {
   fileLabel.style.position = "absolute";
   fileLabel.style.fontSize = "10px";
   fileLabel.style.fontWeight = "500";
-  fileLabel.style.color = (row + col) % 2 === 0 ? "#e8eaf6" : "#0931b3";
+  fileLabel.style.color = 'white'
   fileLabel.textContent = ["a","b","c","d","e","f","g","h"][col];
   fileLabel.style.bottom = "2px";
   fileLabel.style.right = "2px";
