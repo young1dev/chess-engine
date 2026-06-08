@@ -83,12 +83,29 @@
         <div class="cell" data-row="7" data-col="7"></div>
       </div>
     </div>
+
+    <div id="color-modal" class="modal show">
+      <div id="modal-content">
+        <h1>Choose your color</h1>
+        <div class="color-btns">
+          <button onclick="chooseColor('white')">♔ White</button>
+          <button onclick="chooseColor('black')">♚ Black</button>
+        </div>
+      </div>
+    </div>
+
+    <div id="game-modal" class="modal">
+      <div id="modal-content">
+        <h1 id="modal-message"></h1>
+        <button onclick="resetGame(boardState)">Play Again</button>
+      </div>
+    </div>
+
     <script src="js/logic.js"></script>
     <script src="js/ui.js"></script>
+    <!-- <script src="js/v1bot.js"></script> -->
+
+    <script src="js/v2.js"></script>
     <script src="js/main.js"></script>
-    <script src="/js/v2.js"></script>
-    <script src="js/v1bot.js"></script>
-    
-    
   </body>
 </html>

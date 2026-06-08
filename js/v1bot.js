@@ -29,6 +29,6 @@ function getBotMove(boardState, color) {
   if (allPossibleMoves.length === 0) return null;
   const botMove =
     allPossibleMoves[Math.floor(Math.random() * allPossibleMoves.length)];
-  console.log(botMove);
+  // console.log(botMove);
   return botMove;
 }

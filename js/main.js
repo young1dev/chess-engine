@@ -1,12 +1,16 @@
-//const playerColor = prompt("Choose your preferred color").toLowerCase()
+let playerColor = "white";
+let aiColor = "black";
 //console.log(playerColor)
+
 let currentTurn = "white";
+
 function validateTurn(currentTurn) {
   console.log("Current turn:", currentTurn);
   if (selectedPiece.color !== currentTurn) {
     console.log(`Not your turn`);
     return false;
   }
+  if (selectedPiece.color !== playerColor) return false;
   return true;
 }
 
@@ -44,13 +48,15 @@ let selectedFrom = null;
 const cells = document.querySelectorAll(".cell");
 
 console.log(currentTurn);
-if (currentTurn === "black") {
-  const botMove = getBotMove(boardState, "black");
-  console.log(botMove);
-  move(botMove.toRow, botMove.toCol, {
-    row: botMove.fromRow,
-    col: botMove.fromCol,
-  });
+
+function startGame() {
+  console.log("Got here");
+  if (currentTurn === aiColor) {
+    setTimeout(() => {
+      const botMove = getBotMove(boardState, aiColor);
+      executeBotMove(botMove);
+    }, 300);
+  }
 }
 
 board.addEventListener("click", (e) => {
@@ -129,12 +135,15 @@ board.addEventListener("click", (e) => {
 
 function gameStateCheck() {
   // Check
+
   if (isCheck(boardState, currentTurn)) {
     let kingRow, kingCol;
     for (let row = 0; row < 8; row++) {
       for (let col = 0; col < 8; col++) {
-        if (boardState[row][col]?.type === "King" && 
-            boardState[row][col]?.color === currentTurn) {
+        if (
+          boardState[row][col]?.type === "King" &&
+          boardState[row][col]?.color === currentTurn
+        ) {
           kingRow = row;
           kingCol = col;
         }
@@ -145,21 +154,25 @@ function gameStateCheck() {
 
   // Checkmate
   if (isCheckmate(boardState, currentTurn)) {
-    alert("Checkmate. Game over.");
-    resetGame(boardState);
-    return;
+    if (currentTurn === playerColor) {
+    alertModal("You lost! Checkmate.");
+  } else {
+    alertModal("You win! Checkmate.");
+  }
+  resetGame(boardState);
+  return;
   }
 
   // Stalemate
   if (isStalemate(boardState, currentTurn)) {
-    alert("Draw - Stalemate");
+    alertModal("Draw by Stalemate");
     resetGame(boardState);
     return;
   }
 
   // Insufficient material
   if (insuffMaterial(boardState)) {
-    alert("Draw - Insufficient Material");
+    alertModal("Draw - Insufficient Material");
     resetGame(boardState);
     return;
   }
@@ -203,9 +216,9 @@ function move(toRow, toCol, selectedFrom) {
         executeCastle(boardState, toRow, fromCol, toCol);
         renderBoard();
         turnSwitch();
-        if (currentTurn === "black") {
+        if (currentTurn === aiColor) {
           setTimeout(() => {
-            const botMove = getBotMove(boardState, "black");
+            const botMove = getBotMove(boardState, aiColor);
             executeBotMove(botMove);
           }, 300);
         }
@@ -228,7 +241,7 @@ function move(toRow, toCol, selectedFrom) {
       console.log("Got Here enpassant");
       boardState[capturedPawnRow][toCol] = null;
     }
-    console.log(isPromotion(selectedPiece, toRow));
+    // console.log(isPromotion(selectedPiece, toRow));
 
     if (isPromotion(selectedPiece, toRow)) {
       promotion = prompt("Promote to Q, R, B, or N").toUpperCase();
@@ -273,11 +286,11 @@ function move(toRow, toCol, selectedFrom) {
     turnSwitch();
     clearSelection();
     clearHighlight();
-    gameStateCheck()
+    gameStateCheck();
 
-    if (currentTurn === "black") {
+    if (currentTurn === aiColor) {
       setTimeout(() => {
-        const botMove = getBotMove(boardState, "black");
+        const botMove = getBotMove(boardState, aiColor);
         executeBotMove(botMove);
       }, 300); // small delay so the board renders first
     }
@@ -292,7 +305,7 @@ function move(toRow, toCol, selectedFrom) {
   //selectedPiece = null;
   clearSelection();
   clearHighlight();
-  gameStateCheck()
+  gameStateCheck();
 }
 
 function clearSelection() {
@@ -310,7 +323,7 @@ function createPieces(type, color) {
 
 //White pawns
 for (let col = 0; col < 8; col++) {
-    boardState[6][col] = createPieces("Pawn", "white")
+  boardState[6][col] = createPieces("Pawn", "white");
 }
 
 // boardState[6][4] = createPieces("Pawn", "black");

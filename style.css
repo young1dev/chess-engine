@@ -22,6 +22,12 @@
   border-radius: 4px;
   box-shadow: 0 0 40px rgba(9, 49, 179, 0.5);
 }
+.board.flipped {
+  transform: rotate(180deg);
+}
+.board.flipped .cell {
+  transform: rotate(180deg);
+}
 
 .cell {
   display: flex;
@@ -65,4 +71,71 @@
 .cell.selected::after {
   opacity: 1;
   background: rgba(255, 215, 0, 0.3);
+}
+
+.modal {
+  display: none;
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.7);
+  z-index: 100;
+  justify-content: center;
+  align-items: center;
+}
+
+.modal.show {
+  display: flex;
+}
+
+.color-btns {
+  display: flex;
+  gap: 1rem;
+  justify-content: center;
+}
+
+#modal-content {
+  background: #1a1a2e;
+  border: 2px solid #0931b3;
+  border-radius: 12px;
+  padding: 2rem 2.5rem;
+  text-align: center;
+  box-shadow: 0 0 40px rgba(9, 49, 179, 0.6);
+  animation: slideUp 0.3s ease;
+}
+
+#modal-content h1 {
+  color: #e8eaf6;
+  font-size: 1.8rem;
+  margin-bottom: 0.5rem;
+}
+
+#modal-content p {
+  color: rgba(232, 234, 246, 0.6);
+  margin-bottom: 1.5rem;
+}
+
+#modal-content button {
+  background: #0931b3;
+  color: #e8eaf6;
+  border: none;
+  padding: 0.6rem 1.8rem;
+  border-radius: 6px;
+  font-size: 1rem;
+  cursor: pointer;
+  transition: background 0.2s ease;
+}
+
+
+#modal-content button:hover {
+  background: #0a3fd4;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+@keyframes slideUp {
+  from { transform: translateY(20px); opacity: 0; }
+  to { transform: translateY(0); opacity: 1; }
 }

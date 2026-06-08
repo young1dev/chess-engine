@@ -199,7 +199,6 @@ function isValidPawnMove(fromRow, fromCol, toRow, toCol, boardState) {
       toCol === enPassantTarget.col &&
       toRow === enPassantTarget.row
     ) {
-      console.log("Got here");
       return true;
     }
   }
@@ -356,7 +355,9 @@ function isLegalMove(toRow, toCol, fromRow, fromCol, boardState, currentTurn) {
 
   //Castling Exception
   const isCastlingAttempt =
-    piece.type === "King" && Math.abs(toRow - fromRow) === 0 && Math.abs(toCol - fromCol) === 2;
+    piece.type === "King" &&
+    Math.abs(toRow - fromRow) === 0 &&
+    Math.abs(toCol - fromCol) === 2;
 
   if (isCastlingAttempt) {
     const rookCol = toCol > fromCol ? 7 : 0;
@@ -554,7 +555,11 @@ function isThreshold(boardState) {
   return false;
 }
 
+let resetGameState = false;
+
 function resetGame(boardState) {
+  hideModal();
+  resetGameState = false;
   for (let row = 0; row < 8; row++) {
     for (let col = 0; col < 8; col++) {
       boardState[row][col] = null;
@@ -601,7 +606,9 @@ function resetGame(boardState) {
   positionMap.clear();
   history.length = 0;
   currentTurn = "white";
+
   clearSelection();
+
   renderBoard();
 }
 const history = [];
@@ -622,8 +629,8 @@ function moveHistory(
   const target = boardState[toRow][toCol];
   const square = indexToSquare(toRow, toCol);
 
-  console.log(fromRow, fromCol, toRow, toCol);
-  console.log(piece);
+  // console.log(fromRow, fromCol, toRow, toCol);
+  // console.log(piece);
 
   //Castle
   if (piece.type === "King" && Math.abs(toCol - fromCol) === 2) {
@@ -631,7 +638,7 @@ function moveHistory(
     history.push(move);
     return;
   }
-  console.log(enPassantTarget);
+  // console.log(enPassantTarget);
 
   //Enpassant
   if (piece.type === "Pawn" && enPassantTarget) {
@@ -675,7 +682,7 @@ function executeBotMove(botMove) {
     botMove.fromRow,
     botMove.fromCol,
     boardState,
-    "black",
+    aiColor,
   );
 
   if (!legal) {
@@ -684,9 +691,9 @@ function executeBotMove(botMove) {
     return;
   }
 
-if (isPromotion(selectedPiece, botMove.toRow)) {
-  selectedPiece.type = "Queen";
-}
+  if (isPromotion(selectedPiece, botMove.toRow)) {
+    selectedPiece.type = "Queen";
+  }
 
   move(botMove.toRow, botMove.toCol, {
     row: botMove.fromRow,
