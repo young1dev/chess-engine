@@ -596,12 +596,12 @@ function resetGame(boardState) {
   boardState[7][6] = createPieces("Knight", "white");
 
   //King
-  boardState[7][3] = createPieces("King", "white");
-  boardState[0][3] = createPieces("King", "black");
+  boardState[7][4] = createPieces("King", "white");
+  boardState[0][4] = createPieces("King", "black");
 
   //Queen
-  boardState[7][4] = createPieces("Queen", "white");
-  boardState[0][4] = createPieces("Queen", "black");
+  boardState[7][3] = createPieces("Queen", "white");
+  boardState[0][3] = createPieces("Queen", "black");
 
   positionMap.clear();
   history.length = 0;
