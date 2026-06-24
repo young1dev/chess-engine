@@ -18,8 +18,10 @@ A vanilla JavaScript chess engine with a built-in bot. Built with HTML, CSS, and
 - Move and check highlighting
 - Previous move highlight
 - Boardstate hashing
-- Move history (SAN-style notation)
+- Move history (SAN-style notation) (Console only for now)
+- Rank and files UI on the board 
 - Random-move bot (V1)
+- A min-max algorithm based bot (v2)
 
 ### Why I Built This
 
@@ -31,6 +33,7 @@ Game state management
 Rule validation
 Edge cases like castling, en passant, and draw conditions
 Structuring larger JavaScript files without frameworks
+How recursive code works
 
 ### Problems I Faced
 
@@ -38,6 +41,7 @@ Structuring larger JavaScript files without frameworks
 - Handling king safety was harder than expected. I had to simulate moves on a cloned board to avoid illegal self-checks and also prevent mutatio.
 - Threefold repetition required hashing board states correctly.
 - Separating UI logic separate from game rules took several refactors as i always tied the game logic which the ui logic which caused lot of bugs and disappearing piece.
+- Trying to reduce the runtime for the v2 bot. Used alpha-beta pruning but it's thinking is still slow. (Next update will solve that)
 
 These challenges helped me understand why chess engines are usually built in layers.
 ```
@@ -51,14 +55,14 @@ These challenges helped me understand why chess engines are usually built in lay
 | `isCheck()` | logic.js | Detects if a king is under attack |
 | `isCheckmate()` | logic.js | King in check with no legal moves |
 | `isStalemate()` | logic.js | No legal moves but not in check |
-| `getBotMove()` | v1bot.js | Selects a random legal move |
+| `getBotMove()` | v2.js | Selects a move with the highest value in the min-max tree|
 | `executeBotMove()` | main.js | Applies the bot move |
 | `gameStateCheck()` | main.js | Evaluates end-game conditions |
 | `renderBoard()` | ui.js | Updates board UI |
 
-### Move flow
-
 ````
+````
+### Move flow
 
 Player clicks → main.js
 → isLegalMove() checks rules + king safety
@@ -66,11 +70,11 @@ Player clicks → main.js
 → renderBoard() repaints UI
 → turnSwitch() flips turn
 → gameStateCheck() checks for check/checkmate/stalemate/draw
-→ Bot triggers if it's black's turn
+→ Bot triggers if it's it turn
 
 ### Tools used while building
 AI for UI and research 
-Youtube for understanding the minmax algorithm for v2bot(in progress)
+Youtube for understanding the minmax algorithm for v2bot
 
 ## Built By
 

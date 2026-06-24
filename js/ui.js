@@ -23,7 +23,7 @@ function renderBoard() {
     const col = Number(cell.dataset.col);
 
     cell.classList.remove("light", "dark");
-    cell.classList.add((row + col) % 2 === 0 ? "dark" : "light");
+    cell.classList.add((row + col) % 2 === 0 ? "light" : "dark");
 
     // Clear cell
     cell.innerHTML = "";
@@ -37,6 +37,54 @@ function renderBoard() {
       img.style.pointerEvents = "none"; // so clicks pass through to the cell
       cell.appendChild(img);
     }
+    const label = document.createElement("span");
+label.style.position = "absolute";
+label.style.fontSize = "10px";
+label.style.fontWeight = "500";
+label.style.color = 'white'
+
+if (playerColor === "white") {
+  if (col === 0){
+    label.textContent = 8 - row;
+  label.style.top = "2px";
+  label.style.left = "2px";
+  cell.appendChild(label);
+  }
+  
+} 
+
+if (playerColor === "black") {
+  if (col === 7){
+    label.textContent = 8 - row;
+  label.style.top = "2px";
+  label.style.left = "2px";
+  cell.appendChild(label);
+  }
+  
+} 
+
+if (row === 7 && playerColor === "white") {
+  const fileLabel = document.createElement("span");
+  fileLabel.style.position = "absolute";
+  fileLabel.style.fontSize = "10px";
+  fileLabel.style.fontWeight = "500";
+  fileLabel.style.color = 'white'
+  fileLabel.textContent = ["a","b","c","d","e","f","g","h"][col];
+  fileLabel.style.bottom = "2px";
+  fileLabel.style.right = "2px";
+  cell.appendChild(fileLabel);
+}
+if (row === 0 && playerColor === "black") {
+  const fileLabel = document.createElement("span");
+  fileLabel.style.position = "absolute";
+  fileLabel.style.fontSize = "10px";
+  fileLabel.style.fontWeight = "500";
+  fileLabel.style.color = 'white'
+  fileLabel.textContent = ["a","b","c","d","e","f","g","h"][col];
+  fileLabel.style.bottom = "2px";
+  fileLabel.style.right = "2px";
+  cell.appendChild(fileLabel);
+}
   });
 }
 

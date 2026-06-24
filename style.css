@@ -49,12 +49,12 @@
 
 /* Light square */
 .cell.light {
-  background-color: #e8eaf6;
+  background-color: #f0d9b5;
 }
 
 /* Dark square */
 .cell.dark {
-  background-color: #0931b3;
+  background-color: #b58863;
 }
 
 .cell::after {
