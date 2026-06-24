@@ -55,6 +55,8 @@ function startGame() {
     setTimeout(() => {
       const botMove = getBotMove(boardState, aiColor);
       executeBotMove(botMove);
+      appendHistory("bot");
+      aiMove += 1;
     }, 300);
   }
 }
@@ -155,12 +157,12 @@ function gameStateCheck() {
   // Checkmate
   if (isCheckmate(boardState, currentTurn)) {
     if (currentTurn === playerColor) {
-    alertModal("You lost! Checkmate.");
-  } else {
-    alertModal("You win! Checkmate.");
-  }
-  resetGame(boardState);
-  return;
+      alertModal("You lost! Checkmate.");
+    } else {
+      alertModal("You win! Checkmate.");
+    }
+    resetGame(boardState);
+    return;
   }
 
   // Stalemate
@@ -178,8 +180,27 @@ function gameStateCheck() {
   }
 }
 
+function appendHistory(user) {
+  const whiteHistory = document.getElementsByClassName("whitePiece");
+  const blackHistory = document.getElementsByClassName("blackPiece");
+
+  const map = {
+    K: "white",
+    Q: "white"
+
+  }
+  
+  history.forEach((h) => {
+    if (h[0] === toUpperCase) {
+      console.log("White")
+    }
+  });
+}
+
 let promotion;
 
+let aiMove = 0;
+let playerMove = 0;
 function move(toRow, toCol, selectedFrom) {
   const { row: fromRow, col: fromCol } = selectedFrom;
   if (!selectedPiece) return;
@@ -220,6 +241,8 @@ function move(toRow, toCol, selectedFrom) {
           setTimeout(() => {
             const botMove = getBotMove(boardState, aiColor);
             executeBotMove(botMove);
+            appendHistory("bot");
+            aiMove += 1;
           }, 300);
         }
         clearSelection();
@@ -273,6 +296,8 @@ function move(toRow, toCol, selectedFrom) {
     boardState[toRow][toCol] = selectedPiece;
     boardState[fromRow][fromCol] = null;
     selectedPiece.hasMoved = true;
+    appendHistory("player");
+    playerMove += 1;
 
     //Enpassant
 
@@ -292,6 +317,8 @@ function move(toRow, toCol, selectedFrom) {
       setTimeout(() => {
         const botMove = getBotMove(boardState, aiColor);
         executeBotMove(botMove);
+        appendHistory("bot");
+        aiMove += 1;
       }, 300); // small delay so the board renders first
     }
     //return true;

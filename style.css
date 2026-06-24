@@ -6,10 +6,18 @@
 
 .container {
   display: flex;
+  flex-direction: column;
   justify-content: center;
   align-items: center;
   height: 100vh;
   background-color: #1a1a2e;
+}
+
+.history {
+  margin-bottom: 10px;
+  display: flex;
+  justify-content: space-between;
+  gap: 400px;
 }
 
 .board {

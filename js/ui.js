@@ -139,7 +139,7 @@ function alertModal(message) {
   document.getElementById("modal-message").textContent = message;
   document.getElementById("game-modal").classList.add("show");
 }
-
+// alertModal("You-Lost Checkmate")
 function hideModal() {
   document.getElementById("game-modal").classList.remove("show");
 }
