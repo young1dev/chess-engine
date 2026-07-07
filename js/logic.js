@@ -559,7 +559,7 @@ let resetGameState = false;
 
 function resetGame(boardState) {
   hideModal();
-  resetGameState = false;
+  resetGameState = true;
   for (let row = 0; row < 8; row++) {
     for (let col = 0; col < 8; col++) {
       boardState[row][col] = null;
@@ -604,12 +604,14 @@ function resetGame(boardState) {
   boardState[0][3] = createPieces("Queen", "black");
 
   positionMap.clear();
+  transpositionTable.clear();
   history.length = 0;
   currentTurn = "white";
 
   clearSelection();
-
+  clearHighlight();
   renderBoard();
+  resetGameState = false;
 }
 const history = [];
 

@@ -38,53 +38,51 @@ function renderBoard() {
       cell.appendChild(img);
     }
     const label = document.createElement("span");
-label.style.position = "absolute";
-label.style.fontSize = "10px";
-label.style.fontWeight = "500";
-label.style.color = 'white'
+    label.style.position = "absolute";
+    label.style.fontSize = "10px";
+    label.style.fontWeight = "500";
+    label.style.color = "white";
 
-if (playerColor === "white") {
-  if (col === 0){
-    label.textContent = 8 - row;
-  label.style.top = "2px";
-  label.style.left = "2px";
-  cell.appendChild(label);
-  }
-  
-} 
+    if (playerColor === "white") {
+      if (col === 0) {
+        label.textContent = 8 - row;
+        label.style.top = "2px";
+        label.style.left = "2px";
+        cell.appendChild(label);
+      }
+    }
 
-if (playerColor === "black") {
-  if (col === 7){
-    label.textContent = 8 - row;
-  label.style.top = "2px";
-  label.style.left = "2px";
-  cell.appendChild(label);
-  }
-  
-} 
+    if (playerColor === "black") {
+      if (col === 7) {
+        label.textContent = 8 - row;
+        label.style.top = "2px";
+        label.style.left = "2px";
+        cell.appendChild(label);
+      }
+    }
 
-if (row === 7 && playerColor === "white") {
-  const fileLabel = document.createElement("span");
-  fileLabel.style.position = "absolute";
-  fileLabel.style.fontSize = "10px";
-  fileLabel.style.fontWeight = "500";
-  fileLabel.style.color = 'white'
-  fileLabel.textContent = ["a","b","c","d","e","f","g","h"][col];
-  fileLabel.style.bottom = "2px";
-  fileLabel.style.right = "2px";
-  cell.appendChild(fileLabel);
-}
-if (row === 0 && playerColor === "black") {
-  const fileLabel = document.createElement("span");
-  fileLabel.style.position = "absolute";
-  fileLabel.style.fontSize = "10px";
-  fileLabel.style.fontWeight = "500";
-  fileLabel.style.color = 'white'
-  fileLabel.textContent = ["a","b","c","d","e","f","g","h"][col];
-  fileLabel.style.bottom = "2px";
-  fileLabel.style.right = "2px";
-  cell.appendChild(fileLabel);
-}
+    if (row === 7 && playerColor === "white") {
+      const fileLabel = document.createElement("span");
+      fileLabel.style.position = "absolute";
+      fileLabel.style.fontSize = "10px";
+      fileLabel.style.fontWeight = "500";
+      fileLabel.style.color = "white";
+      fileLabel.textContent = ["a", "b", "c", "d", "e", "f", "g", "h"][col];
+      fileLabel.style.bottom = "2px";
+      fileLabel.style.right = "2px";
+      cell.appendChild(fileLabel);
+    }
+    if (row === 0 && playerColor === "black") {
+      const fileLabel = document.createElement("span");
+      fileLabel.style.position = "absolute";
+      fileLabel.style.fontSize = "10px";
+      fileLabel.style.fontWeight = "500";
+      fileLabel.style.color = "white";
+      fileLabel.textContent = ["a", "b", "c", "d", "e", "f", "g", "h"][col];
+      fileLabel.style.bottom = "2px";
+      fileLabel.style.right = "2px";
+      cell.appendChild(fileLabel);
+    }
   });
 }
 
@@ -109,6 +107,35 @@ function movesHighlight(piece, selectedFrom, boardState) {
     }
   }
   renderHighlight(possibleMove);
+}
+
+function capturedPiece(toRow, toCol) {
+  let playerPiece = document.getElementById("player");
+  let aiPiece = document.getElementById("ai");
+  const color = currentTurn === "white" ? "black" : "white";
+
+  const piece = boardState[toRow][toCol];
+  if (playerColor === color) {
+    if (piece !== null) {
+      const spanWrapper = document.createElement("span");
+      const img = document.createElement("img");
+      img.src = pieceImages[piece.color][piece.type];
+      img.style.width = "30px";
+      //img.style.height = "50%";
+      spanWrapper.appendChild(img);
+      playerPiece.appendChild(spanWrapper);
+    }
+  } else {
+    if (piece !== null) {
+      const spanWrapper = document.createElement("span");
+      const img = document.createElement("img");
+      img.src = pieceImages[piece.color][piece.type];
+      img.style.width = "30px";
+      //img.style.height = "50%";
+      spanWrapper.appendChild(img);
+      aiPiece.appendChild(spanWrapper);
+    }
+  }
 }
 
 function renderHighlight(possibleMove) {
@@ -136,6 +163,12 @@ function clearHighlight() {
       cell.style.backgroundColor = "";
     }
   });
+  let playerPiece = document.getElementById("player");
+  let aiPiece = document.getElementById("ai");
+  if (resetGameState) {
+    playerPiece.innerHTML = "";
+    aiPiece.innerHTML = "";
+  }
   possibleMove = [];
 }
 
@@ -143,6 +176,7 @@ function prevMoveHighlight(fromRow, fromCol, toRow, toCol) {
   // console.log(fromRow, fromCol)
   cells.forEach((cell) => {
     cell.style.backgroundColor = "";
+
     if (
       Number(cell.dataset.row) === fromRow &&
       Number(cell.dataset.col) === fromCol

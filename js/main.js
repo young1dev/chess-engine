@@ -161,7 +161,7 @@ function gameStateCheck() {
     } else {
       alertModal("You win! Checkmate.");
     }
-    resetGame(boardState);
+    //resetGame(boardState);
     return;
   }
 
@@ -190,11 +190,7 @@ function appendHistory(user) {
 
   }
   
-  history.forEach((h) => {
-    if (h[0] === toUpperCase) {
-      console.log("White")
-    }
-  });
+  
 }
 
 let promotion;
@@ -293,6 +289,9 @@ function move(toRow, toCol, selectedFrom) {
     }
     //console.log(enPassantTarget);
 
+    if (boardState[toRow][toCol] !== null) {
+      capturedPiece(toRow, toCol);
+    }
     boardState[toRow][toCol] = selectedPiece;
     boardState[fromRow][fromCol] = null;
     selectedPiece.hasMoved = true;
